@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div style="padding: 20px;">
+    <h2>📊 Analytics: Price per Sector</h2>
+
+    <!-- Map Plot -->
+    <div class="plot-container" style="margin-bottom: 30px;">
+      {{ plot_html | safe }}
+    </div>
+
+    <hr>
+
+    <!-- Dropdown and WordCloud -->
+    <h3>☁️ Generate Word Cloud</h3>
+    <form method="post" action="/info">
+      <label for="sector">Select a Sector:</label>
+      <select name="sector" id="sector" required>
+        {% for sector in sectors %}
+          <option value="{{ sector }}" {% if sector == selected_sector %}selected{% endif %}>{{ sector }}</option>
+        {% endfor %}
+      </select>
+      <button type="submit">Generate WordCloud</button>
+    </form>
+
+    <!-- Message if no data -->
+    {% if message %}
+      <p style="color: red; margin-top: 15px;">{{ message }}</p>
+    {% endif %}
+
+    <!-- WordCloud Display -->
+    {% if wordcloud_img_path %}
+      <h4 style="margin-top: 30px;">Word Cloud for <strong>{{ selected_sector }}</strong></h4>
+      <img src="{{ url_for('static', filename=wordcloud_img_path.split('static/')[-1]) }}"
+           alt="WordCloud"
+           style="max-width: 800px; margin-top: 15px; border: 1px solid #ccc; padding: 10px;">
+    {% endif %}
+  </div>
+  <hr>
+<h3>📉 Built-up Area vs Price Scatter Plot</h3>
+<div class="plot-container">
+    {{ scatter_html | safe }}
+</div>
+
+{% endblock %}

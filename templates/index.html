@@ -1,90 +1,106 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>House Price Predictor</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <div class="container">
-        <h2>House Price Prediction</h2>
-        <form method="POST">
+{% extends "base.html" %}
+{% block content %}
+    <h2>🏠 House Price Prediction</h2>
+    <form method="POST">
+        <div>
             <label>Property Type:</label>
             <select name="property_type">
                 {% for item in property_types %}
                     <option value="{{item}}">{{item}}</option>
                 {% endfor %}
             </select>
+        </div>
 
+        <div>
             <label>Sector:</label>
             <select name="sector">
                 {% for item in sectors %}
                     <option value="{{item}}">{{item}}</option>
                 {% endfor %}
             </select>
+        </div>
 
+        <div>
             <label>Bedrooms:</label>
-            <input type="number" name="bedRoom" step="1" required>
+            <input type="number" name="bedRoom" required>
+        </div>
 
+        <div>
             <label>Bathrooms:</label>
-            <input type="number" name="bathroom" step="1" required>
+            <input type="number" name="bathroom" required>
+        </div>
 
+        <div>
             <label>Balcony:</label>
             <select name="balcony">
                 {% for item in balconies %}
                     <option value="{{item}}">{{item}}</option>
                 {% endfor %}
             </select>
+        </div>
 
+        <div>
             <label>Age of Property:</label>
             <select name="agePossession">
                 {% for item in age_possessions %}
                     <option value="{{item}}">{{item}}</option>
                 {% endfor %}
             </select>
+        </div>
 
+        <div>
             <label>Built-up Area (sq.ft):</label>
             <input type="number" name="built_up_area" step="0.1" required>
+        </div>
 
+        <div>
             <label>Servant Room:</label>
             <select name="servant_room">
                 <option value="0.0">No</option>
                 <option value="1.0">Yes</option>
             </select>
+        </div>
 
+        <div>
             <label>Store Room:</label>
             <select name="store_room">
                 <option value="0.0">No</option>
                 <option value="1.0">Yes</option>
             </select>
+        </div>
 
+        <div>
             <label>Furnishing Type:</label>
             <select name="furnishing_type">
                 {% for item in furnishing_types %}
                     <option value="{{item}}">{{item}}</option>
                 {% endfor %}
             </select>
+        </div>
 
+        <div>
             <label>Luxury Category:</label>
             <select name="luxury_category">
                 {% for item in luxury_categories %}
                     <option value="{{item}}">{{item}}</option>
                 {% endfor %}
             </select>
+        </div>
 
+        <div>
             <label>Floor Category:</label>
             <select name="floor_category">
                 {% for item in floor_categories %}
                     <option value="{{item}}">{{item}}</option>
                 {% endfor %}
             </select>
+        </div>
 
-            <button type="submit">Predict Price</button>
-        </form>
+        <button type="submit">Predict Price</button>
 
         {% if prediction %}
             <div class="result">Predicted Price: ₹ {{ prediction }} Crores</div>
         {% endif %}
-    </div>
-</body>
-</html>
+    </form>
+{% endblock %} 
+

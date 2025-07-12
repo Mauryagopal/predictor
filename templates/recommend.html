@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='recommend.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="layout">
+  <div class="sidebar">
+    <a href="/" class="nav-btn">🏠 Predict</a>
+    <a href="/info" class="nav-btn">📊 Analytics</a>
+    <a href="/recommend" class="nav-btn active">🏘️ Recommend</a>
+  </div>
+
+  <div class="main-content">
+    <h2>🏘️ Property Recommendation</h2>
+
+    <form method="POST" class="form-section">
+      <label for="property_name">Select a Property:</label>
+      <select name="property_name" required>
+        {% for name in property_names %}
+          <option value="{{ name }}" {% if selected_property == name %}selected{% endif %}>{{ name }}</option>
+        {% endfor %}
+      </select>
+      <button type="submit">🔍 Recommend</button>
+    </form>
+
+    {% if results_df %}
+    <div class="results-section">
+      <h3>Similar to: <strong>{{ selected_property }}</strong></h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Property Name</th>
+            <th>Similarity Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in results_df.itertuples() %}
+          <tr>
+            <td>{{ row.PropertyName }}</td>
+            <td>{{ "%.4f"|format(row.SimilarityScore) }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
