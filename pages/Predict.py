@@ -6,7 +6,7 @@ predict_bp = Blueprint('predict', __name__)
 
 # Load model and data
 import pickle
-model = pickle.load(open("pipeline.pkl", "rb"))
+model = pickle.load(open("pipelineXg.pkl", "rb"))
 df = pickle.load(open("df.pkl", "rb"))
 
 # Dropdown options
