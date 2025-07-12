@@ -1,0 +1,10 @@
+[project]
+name = "predictor"
+version = "1.0.0"
+description = "House Price Prediction App"
+requires-python = ">=3.10,<3.11"
+dependencies = []
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
