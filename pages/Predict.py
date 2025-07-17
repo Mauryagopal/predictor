@@ -1,13 +1,22 @@
 from flask import Blueprint, render_template, request
 import pandas as pd
 import numpy as np
+import os
 
 predict_bp = Blueprint('predict', __name__)
 
 # Load model and data
 import pickle
-model = pickle.load(open("pipelineXg.pkl", "rb"))
-df = pickle.load(open("df.pkl", "rb"))
+# Define paths in a platform-independent way
+model_path = os.path.join("pickel_file", "pipelineXg.pkl")
+df_path = os.path.join("pickel_file", "df.pkl")
+
+# Load model and dataframe
+with open(model_path, "rb") as f:
+    model = pickle.load(f)
+
+with open(df_path, "rb") as f:
+    df = pickle.load(f)
 
 # Dropdown options
 sectors = sorted([

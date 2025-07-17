@@ -1,21 +1,33 @@
 from flask import Blueprint, render_template, request
 import pandas as pd
 import pickle
+import os
 
-recommend_bp = Blueprint("recommend", __name__, template_folder="../templates")
+# Define Blueprint with proper url_prefix and template path
+recommend_bp = Blueprint("recommend", __name__, url_prefix="/recommend", template_folder="../templates")
 
-# Safe loading of required files
+# Set base directory for loading pickles
+# Base directory where this file (e.g., Recommend.py) is located
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# Go one level up, then into pickel_file/
+PICKLE_DIR = os.path.join(BASE_DIR, "..", "pickel_file")
+
+# Load pickle files
 try:
-    cosine_sim1 = pickle.load(open("cosine_sim1.pkl", "rb"))
-    cosine_sim2 = pickle.load(open("cosine_sim2.pkl", "rb"))
-    cosine_sim3 = pickle.load(open("cosine_sim3.pkl", "rb"))
-    location_df_normalized = pickle.load(open("location_df.pkl", "rb"))
+    cosine_sim1 = pickle.load(open(os.path.join(PICKLE_DIR, "cosine_sim1.pkl"), "rb"))
+    cosine_sim2 = pickle.load(open(os.path.join(PICKLE_DIR, "cosine_sim2.pkl"), "rb"))
+    cosine_sim3 = pickle.load(open(os.path.join(PICKLE_DIR, "cosine_sim3.pkl"), "rb"))
+    location_df_normalized = pickle.load(open(os.path.join(PICKLE_DIR, "location_df.pkl"), "rb"))
 except Exception as e:
-    raise RuntimeError(f"Failed to load recommendation data: {e}")
+    raise RuntimeError(f"❌ Failed to load recommendation data: {e}")
 
 # Recommendation logic
-def recommend_properties_with_scores(property_name, top_n=20):
+def recommend_properties_with_scores(property_name, top_n=5):
     try:
+        if property_name not in location_df_normalized.index:
+            return pd.DataFrame(columns=["PropertyName", "SimilarityScore"])
+
+        # Weighted sum of similarity matrices
         cosine_sim_matrix = 30 * cosine_sim1 + 20 * cosine_sim2 + 8 * cosine_sim3
         idx = location_df_normalized.index.get_loc(property_name)
         sim_scores = list(enumerate(cosine_sim_matrix[idx]))
@@ -30,10 +42,11 @@ def recommend_properties_with_scores(property_name, top_n=20):
             "SimilarityScore": top_scores
         })
     except Exception as e:
+        print(f"Error in recommendation logic: {e}")
         return pd.DataFrame(columns=["PropertyName", "SimilarityScore"])
 
-# Route to render recommendation UI
-@recommend_bp.route("/recommend", methods=["GET", "POST"])
+# Flask route
+@recommend_bp.route("/", methods=["GET", "POST"])
 def recommend():
     try:
         selected_property = None

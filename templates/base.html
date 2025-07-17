@@ -8,11 +8,12 @@
 </head>
 <body>
     <div class="layout">
+        <!-- Sidebar: defined here ONLY -->
         <div class="sidebar">
             <h3>Menu</h3>
-            <a href="/" class="nav-btn {% if request.path == '/' %}active{% endif %}">🏠 Price Predictor</a>
-            <a href="/recommend" class="nav-btn {% if request.path == '/recommend' %}active{% endif %}">🏘️ Recommendation</a>
-            <a href="/info" class="nav-btn {% if request.path == '/info' %}active{% endif %}">📊 Analytics</a>
+            <a href="/" class="nav-btn{% if request.path == '/' %} active{% endif %}">🏠 Price Predictor</a>
+            <a href="/recommend" class="nav-btn{% if request.path == '/recommend' %} active{% endif %}">🏘️ Recommendation</a>
+            <a href="/info" class="nav-btn{% if request.path == '/info' %} active{% endif %}">📊 Analytics</a>
             <a href="#" class="nav-btn">📌 Insights</a>
         </div>
 

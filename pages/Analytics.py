@@ -8,7 +8,7 @@ import pickle
 analytics_bp = Blueprint('analytics', __name__)
 
 # Load data and sectors
-df = pd.read_pickle("df.pkl")
+df = pd.read_pickle("pickel_file/df.pkl")  # FIXED path
 sectors = sorted([
     'dwarka expressway', 'gwal pahari', 'manesar', 'sector 1', 'sector 10', 'sector 102',
     'sector 103', 'sector 104', 'sector 105', 'sector 106', 'sector 107', 'sector 108', 'sector 109',
@@ -37,7 +37,7 @@ except:
 @analytics_bp.route("/info", methods=['GET', 'POST'])
 def info():
     try:
-        df_viz = pd.read_csv("data_viz1.csv")
+        df_viz = pd.read_csv("Dataset/data_viz1.csv")  # FIXED path
         for col in ['price', 'price_per_sqft', 'built_up_area']:
             df_viz[col] = pd.to_numeric(df_viz[col], errors='coerce')
 
@@ -69,7 +69,7 @@ def info():
             features = sector_feature_dict.get(selected_sector, [])
             feature_text = " ".join(features)
 
-            if feature_text.strip():  # Ensure non-empty word list
+            if feature_text.strip():
                 wordcloud = WordCloud(
                     width=800,
                     height=600,

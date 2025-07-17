@@ -1,115 +1,42 @@
-.layout {
-  display: flex;
-  min-height: 100vh;
-}
-
-.sidebar {
-  width: 200px;
-  background-color: #f7f7f7;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  border-right: 1px solid #ddd;
-}
-
-.nav-btn {
-  text-decoration: none;
-  background-color: white;
-  color: #333;
-  padding: 10px 15px;
-  border-radius: 8px;
-  text-align: center;
-  font-weight: 600;
-  border: 2px solid transparent;
-  transition: 0.3s ease;
-}
-
-.nav-btn:hover,
-.nav-btn.active {
-  border-color: #8e44ad;
-  background-color: #fef9ff;
-  color: #8e44ad;
-}
-
-.main-content {
-  flex: 1;
-  padding: 40px;
-  background-color: #fff;
-}
-
-h2 {
-  text-align: center;
-  margin-bottom: 30px;
-  color: #2c3e50;
-}
-
-.form-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-  max-width: 500px;
-  margin: auto;
-  padding: 20px;
-}
-
-label {
-  font-weight: bold;
-  margin-bottom: 5px;
-  font-size: 16px;
-  color: #333;
-}
-
-select {
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 6px;
+/* Colorful table styling - matches site theme */
+table {
   width: 100%;
-  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  background-color: #ffffff;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
 }
 
-button {
-  padding: 12px 20px;
-  font-size: 16px;
-  background-color: #27ae60;
-  color: white;
-  font-weight: bold;
-  border: none;
-  border-radius: 6px;
+thead {
+  background-color: #6c5ce7; /* Primary purple */
+  color: #ffffff;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+th, td {
+  padding: 14px 18px;
+  text-align: left;
+  border-bottom: 1px solid #eeeeee;
+  font-size: 15px;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f8f6ff; /* light purple-tinted white */
+}
+
+tbody tr:hover {
+  background-color: #ece6ff; /* slightly deeper purple tint */
   cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #219150;
-}
-
-.results-section {
-  margin-top: 40px;
-  padding: 0 20px;
 }
 
 .results-section h3 {
   text-align: center;
-  margin-bottom: 15px;
-  color: #555;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-}
-
-th, td {
-  padding: 10px;
-  border: 1px solid #ddd;
-  text-align: left;
-}
-
-th {
-  background-color: #f5f5f5;
-  font-weight: bold;
-  color: #333;
+  margin-bottom: 20px;
+  font-size: 22px;
+  color: #2c3e50;
+  font-weight: 600;
 }
